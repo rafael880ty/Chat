@@ -10,14 +10,21 @@ console.log('Server listening on port 3000');
 
 let users = {};
 let conversations = {};
+let usernames = new Set(); // Store registered usernames
 
 io.on('connection', socket => {
   let username;
 
   socket.on('username', (name) => {
+    if (usernames.has(name)) {
+      socket.emit('usernameExists');
+      return;
+    }
+
     username = name;
     socket.username = username;
     users[socket.id] = username;
+    usernames.add(username); // Add username to the set
     conversations[username] = conversations[username] || {};
 
     // Join a room named after the username
@@ -26,10 +33,13 @@ io.on('connection', socket => {
     // Envia a lista de usuários atualizada para todos os clientes
     io.emit('users', Object.values(users));
     socket.emit('conversations', conversations[username]);
-  });
+ ."
 
 
   socket.on('disconnect', () => {
+    if (username) {
+      usernames.delete(username); // Remove username when user disconnects
+    }
     delete users[socket.id];
     io.emit('users', Object.values(users));
   });
