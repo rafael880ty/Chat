@@ -29,12 +29,18 @@ usernameButton.addEventListener('click', () => {
 });
 
 function initializeChat(username) {
-  socket = io('http://localhost:3000', {
+  socket = io('http://localhost:3000', { // Change to your server URL or leave as is for local
     query: { username: username }
   });
 
   socket.on('connect', () => {
     socket.emit('username', username);
+  });
+
+  socket.on('usernameExists', () => {
+    alert('Este nome de usuário já está em uso. Por favor, escolha outro.');
+    usernameSetup.classList.remove('hidden');
+    chatContainer.classList.add('hidden');
   });
 
   socket.on('users', (users) => {
