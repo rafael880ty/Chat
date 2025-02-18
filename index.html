@@ -1,0 +1,43 @@
+<html>
+<head>
+  <title>Chat do Grupo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="username-setup" class="modal">
+    <div class="modal-content">
+      <h2>Bem-vindo!</h2>
+      <p>Escolha um nome de usuário:</p>
+      <input type="text" id="username-input" placeholder="Seu nome">
+      <button id="username-button">Entrar no Chat</button>
+    </div>
+  </div>
+
+  <div id="chat-container" class="hidden">
+    <div id="user-list">
+      <h3>Usuários Online</h3>
+      <input type="text" id="add-user-input" placeholder="Adicionar usuário">
+      <button id="add-user-button">Adicionar</button>
+      <ul id="users"></ul>
+
+      <h3>Conversas</h3>
+      <ul id="conversations"></ul>
+    </div>
+
+    <div id="chat-window">
+      <div id="messages"></div>
+      <div id="input-area">
+        <input type="text" id="message-input" placeholder="Digite sua mensagem...">
+        <button id="send-button">Enviar</button>
+      </div>
+    </div>
+
+    <div id="user-info">
+      <!-- User info will be displayed here -->
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
